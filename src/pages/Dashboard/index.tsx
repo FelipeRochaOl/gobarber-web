@@ -43,6 +43,7 @@ interface Appointment {
 const Dashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [currentMonth, setCurrentMonth] = useState(new Date())
+  const [isSelectedDate, setIsSelectedDate] = useState(true)
 
   const [monthAvailability, setMonthAvailability] = useState<
     MonthAvailabilityItem[]
@@ -52,11 +53,14 @@ const Dashboard: React.FC = () => {
 
   const { signOut, user } = useAuth()
 
-  const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
-    if (modifiers.available && !modifiers.disabled) {
-      setSelectedDate(day)
-    }
-  }, [])
+  const handleDateChange = useCallback(
+    (day: Date, modifiers: DayModifiers) => {
+      if (modifiers.available && !modifiers.disabled && isSelectedDate) {
+        setSelectedDate(day)
+      }
+    },
+    [isSelectedDate],
+  )
 
   const handleMonthChange = useCallback((month: Date) => {
     setCurrentMonth(month)
@@ -71,9 +75,14 @@ const Dashboard: React.FC = () => {
         },
       })
       .then(response => {
+        setIsSelectedDate(true)
         setMonthAvailability(response.data)
+
+        if (currentMonth.getMonth() + 1 !== selectedDate.getMonth() + 1) {
+          setIsSelectedDate(false)
+        }
       })
-  }, [currentMonth, user.id])
+  }, [currentMonth, user.id, selectedDate])
 
   useEffect(() => {
     api
@@ -241,7 +250,7 @@ const Dashboard: React.FC = () => {
             modifiers={{
               available: { daysOfWeek: [1, 2, 3, 4, 5] },
             }}
-            selectedDays={selectedDate}
+            selectedDays={isSelectedDate ? selectedDate : []}
             onDayClick={handleDateChange}
             onMonthChange={handleMonthChange}
             months={[
