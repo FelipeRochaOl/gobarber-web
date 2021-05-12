@@ -51,7 +51,7 @@ const SignUp: React.FC = () => {
         addToast({
           type: 'success',
           title: 'Cadastro realizado',
-          description: 'Seja bem bindo! Faça seu logon no GoBarber',
+          description: 'Seja bem vindo! Faça seu logon no GoBarber',
         })
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
