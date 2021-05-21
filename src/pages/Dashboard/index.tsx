@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import DayPicker, { DayModifiers } from 'react-day-picker'
-import { isToday, format, parseISO, isAfter } from 'date-fns'
+import { isToday, format, parseISO, isAfter, startOfMonth } from 'date-fns'
 import { Link } from 'react-router-dom'
 import ptBR from 'date-fns/locale/pt-BR'
 import 'react-day-picker/lib/style.css'
@@ -77,10 +77,6 @@ const Dashboard: React.FC = () => {
       .then(response => {
         setIsSelectedDate(true)
         setMonthAvailability(response.data)
-
-        if (currentMonth.getMonth() + 1 !== selectedDate.getMonth() + 1) {
-          setIsSelectedDate(false)
-        }
       })
   }, [currentMonth, user.id, selectedDate])
 
