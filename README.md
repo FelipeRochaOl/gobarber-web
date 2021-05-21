@@ -2,6 +2,10 @@
 
 [![Watch the video](https://cdn.loom.com/sessions/thumbnails/7a2aaea5bd5746ff9ca4f5f277dbd84a-with-play.gif)](https://www.loom.com/share/7a2aaea5bd5746ff9ca4f5f277dbd84a)
 
+# Link
+
+  https://gobarber-app.felipe-rocha.com/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
